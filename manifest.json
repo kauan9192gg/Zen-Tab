@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Zen Tab",
+  "version": "10.9.0",
+  "description": "Nova Guia com galeria de wallpapers, gradientes, cores sólidas, vídeos de fundo, catálogo online e widgets posicionáveis.",
+  "chrome_url_overrides": { "newtab": "newtab.html" },
+  "permissions": ["storage", "unlimitedStorage", "tabs"],
+  "host_permissions": [
+    "https://api.datamuse.com/*",
+    "https://duckduckgo.com/*",
+    "https://www.google.com/*",
+    "https://suggestqueries.google.com/*",
+    "https://www.google.com/s2/*",
+    "https://api.github.com/*",
+    "https://raw.githubusercontent.com/*",
+    "https://wsrv.nl/*"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

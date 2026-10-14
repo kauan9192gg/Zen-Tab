@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Guia</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="bg-layer"></div>
+  <div id="bg-video-slot"></div>
+  <div id="bg-overlay"></div>
+
+  <div class="shortcuts-block" id="shortcuts-block">
+    <div class="shortcuts" id="shortcuts"></div>
+  </div>
+
+  <div class="top-right-controls">
+    <button class="icon-btn" id="open-settings" title="Configurações (Ctrl+,)">
+      <svg viewBox="0 0 24 24">
+        <path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="editor-bar" id="editor-bar">
+    <div class="editor-bar-inner">
+      <span class="editor-dot"></span>
+      <span>Modo Editor</span>
+      <span class="editor-hint">Arraste os widgets. Eles se reposicionam automaticamente quando possível.</span>
+      <button class="editor-exit-btn" id="exit-editor">Sair</button>
+    </div>
+  </div>
+
+  <div class="widgets-layer" id="widgets-layer">
+    <div class="widget" id="widget-clock" data-widget="clock">
+      <div class="clock" id="clock">00:00</div>
+      <div class="greeting" id="greeting">Bom dia</div>
+    </div>
+
+    <div class="widget" id="widget-search" data-widget="search">
+      <form id="search-form" class="search-form" autocomplete="off">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18">
+          <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/>
+        </svg>
+        <input type="text" id="search-input" class="search-input"
+               placeholder="Pesquise ou digite um URL"
+               autocomplete="off" spellcheck="false">
+
+        <div class="search-suggestions" id="search-suggestions">
+          <div class="suggestion-header">
+            <span id="suggestion-title">Sugestões</span>
+            <span class="suggestion-hint">Enter para buscar</span>
+          </div>
+          <div class="suggestions-list" id="suggestions-list"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL DE CONFIGURAÇÕES ===== -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="settings-modal">
+      <button class="modal-close" id="close-settings">×</button>
+
+      <aside class="settings-sidebar">
+        <div class="settings-sidebar-title">Personalizar</div>
+
+        <button class="tab active" data-tab="wallpaper">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          Imagem de fundo
+        </button>
+
+        <button class="tab" data-tab="widgets">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          Widgets
+        </button>
+
+        <button class="tab" data-tab="shortcuts">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+          Atalhos
+        </button>
+
+        <button class="tab" data-tab="about">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+          Sobre
+        </button>
+      </aside>
+
+      <div class="settings-content">
+        <div class="settings-content-header" id="settings-header-title">Imagem de fundo</div>
+
+        <div class="settings-body">
+
+          <!-- WALLPAPER -->
+          <div class="tab-panel active" data-panel="wallpaper">
+
+            <div class="wp-view" id="wp-view-home">
+              <div class="wp-gallery">
+                <button class="wp-tile" data-view="mine">
+                  <div class="wp-tile-preview" id="tile-preview-mine">
+                    <div class="wp-tile-icon">
+                      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                    </div>
+                  </div>
+                  <div class="wp-tile-label">Meus wallpapers</div>
+                  <div class="wp-tile-count" id="wp-count-mine">0</div>
+                </button>
+
+                <button class="wp-tile" data-view="gradients">
+                  <div class="wp-tile-preview" id="tile-preview-gradients">
+                    <div class="wp-tile-icon">
+                      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-2-3.5l5-6.5-5 6.5zm-2-2.5l6-8-6 8z"/></svg>
+                    </div>
+                  </div>
+                  <div class="wp-tile-label">Gradientes</div>
+                  <div class="wp-tile-count" id="wp-count-gradients">16</div>
+                </button>
+
+                <button class="wp-tile" data-view="colors">
+                  <div class="wp-tile-preview" id="tile-preview-colors">
+                    <div class="wp-tile-icon">
+                      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 0 0 0 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16a5 5 0 0 0 5-5c0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    </div>
+                  </div>
+                  <div class="wp-tile-label">Cores sólidas</div>
+                  <div class="wp-tile-count" id="wp-count-colors">16</div>
+                </button>
+
+                <button class="wp-tile wp-tile-add" data-view="add" title="Catálogo de wallpapers">
+                  <div class="wp-tile-icon">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                  </div>
+                  <div class="wp-tile-label">Adicionar</div>
+                </button>
+              </div>
+
+              <button class="text-btn" id="open-brave-appearance" style="margin-top:4px">
+                Abrir "Tema e cores" ↗
+              </button>
+            </div>
+
+            <div class="wp-view hidden" id="wp-view-mine">
+              <button class="wp-back" data-back="home">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Voltar
+              </button>
+
+              <div class="wp-view-header">
+                <div>
+                  <div class="wp-view-title">Meus wallpapers</div>
+                  <div class="wp-view-desc">Wallpapers que você adicionou, salvos por categoria. Dica: clique com o botão direito para selecionar.</div>
+                </div>
+                <div class="wp-header-actions">
+                  <button class="text-btn small" id="wp-select-toggle">Selecionar</button>
+                  <button class="primary-btn small" id="wp-add-btn">+ Adicionar</button>
+                </div>
+              </div>
+
+              <div class="wp-select-bar" id="wp-select-bar" hidden>
+                <label class="wp-select-all">
+                  <input type="checkbox" id="wp-select-all">
+                  <span>Selecionar todas</span>
+                </label>
+                <span class="wp-select-count" id="wp-select-count">0 selecionadas</span>
+                <div class="wp-select-actions">
+                  <button class="text-btn danger small" id="wp-delete-selected" disabled>Apagar</button>
+                  <button class="text-btn small" id="wp-select-cancel">Cancelar</button>
+                </div>
+              </div>
+
+              <input type="file" id="bg-upload" accept="image/gif,image/png,image/jpeg,image/webp,video/mp4,video/webm,video/ogg" hidden multiple>
+
+              <div class="wp-categories" id="wp-categories"></div>
+            </div>
+
+            <div class="wp-view hidden" id="wp-view-confirm">
+              <button class="wp-back" data-back="back">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Voltar
+              </button>
+
+              <div class="wp-confirm-preview" id="wp-confirm-preview"></div>
+
+              <div class="wp-section">
+                <div class="wp-section-title">Ajuste</div>
+                <div class="wp-adjust">
+                  <button class="wp-adjust-btn" data-fit="cover" title="Preencher">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18v18H3V3zm16 16V5H5v14h14zM7 7h10v10H7V7z"/></svg>
+                    Preencher
+                  </button>
+                  <button class="wp-adjust-btn" data-fit="contain" title="Ajustar">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 5h14v14H5V5zm2 2v10h10V7H7z"/></svg>
+                    Ajustar
+                  </button>
+                  <button class="wp-adjust-btn" data-fit="stretch" title="Esticar">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v14H3V5zm16 12V7H5v10h14zM9 9h6v6H9V9z"/></svg>
+                    Esticar
+                  </button>
+                  <button class="wp-adjust-btn" data-fit="center" title="Centralizar">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM3 5h18v2H3V5zm0 12h18v2H3v-2zM5 3v18h2V3H5zm12 0v18h2V3h-2z"/></svg>
+                    Centralizar
+                  </button>
+                  <button class="wp-adjust-btn" data-fit="repeat" title="Repetir (só imagem)">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+                    Repetir
+                  </button>
+                  <button class="wp-adjust-btn" data-fit="repeat-x" title="Repetir horizontal (só imagem)">
+                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 7h18v2H3V7zm0 8h18v2H3v-2zM3 11h4v2H3v-2zm7 0h4v2h-4v-2zm7 0h4v2h-4v-2z"/></svg>
+                    Repetir ↔
+                  </button>
+                </div>
+              </div>
+
+              <div class="wp-section">
+                <div class="wp-section-title">Opções</div>
+                <div class="option-group">
+                  <div class="option-row toggle-row">
+                    <div class="label-block">
+                      <div class="title">Escurecer fundo</div>
+                      <div class="desc">Aplica uma camada escura sobre o wallpaper.</div>
+                    </div>
+                    <input type="checkbox" id="toggle-overlay" checked>
+                  </div>
+                  <div class="option-row toggle-row">
+                    <div class="label-block">
+                      <div class="title">Desfocar fundo levemente</div>
+                      <div class="desc">Aplica um desfoque suave no wallpaper.</div>
+                    </div>
+                    <input type="checkbox" id="toggle-blur">
+                  </div>
+                  <div class="option-row toggle-row" id="row-video-mute" style="display:none">
+                    <div class="label-block">
+                      <div class="title">Silenciar vídeo</div>
+                      <div class="desc">Se desativado, o áudio do vídeo será reproduzido.</div>
+                    </div>
+                    <input type="checkbox" id="toggle-video-mute" checked>
+                  </div>
+                </div>
+              </div>
+
+              <div class="apply-bar">
+                <button class="text-btn danger" id="bg-clear">Remover</button>
+                <button class="primary-btn" id="wp-apply-btn">Aplicar</button>
+              </div>
+            </div>
+
+            <div class="wp-view hidden" id="wp-view-gradients">
+              <button class="wp-back" data-back="home">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Voltar
+              </button>
+
+              <div class="wp-view-header">
+                <div>
+                  <div class="wp-view-title">Gradientes</div>
+                  <div class="wp-view-desc">Escolha um gradiente. Você verá o preview antes de aplicar.</div>
+                </div>
+              </div>
+
+              <div class="wp-swatches" id="gradient-swatches"></div>
+            </div>
+
+            <div class="wp-view hidden" id="wp-view-colors">
+              <button class="wp-back" data-back="home">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Voltar
+              </button>
+
+              <div class="wp-view-header">
+                <div>
+                  <div class="wp-view-title">Cores sólidas</div>
+                  <div class="wp-view-desc">Escolha uma cor. Você verá o preview antes de aplicar.</div>
+                </div>
+              </div>
+
+              <div class="wp-swatches" id="color-swatches"></div>
+            </div>
+
+            <!-- CATÁLOGO: LAYOUT DE 2 COLUNAS (categorias + itens) -->
+            <div class="wp-view hidden" id="wp-view-catalog">
+              <div class="catalog-layout">
+
+                <aside class="catalog-cats-col collapsed" id="catalog-cats-col">
+                  <div class="catalog-cats-header">
+                    <button class="wp-back compact" id="catalog-close" title="Voltar">
+                      <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                      <span class="wp-back-text">Voltar</span>
+                    </button>
+                    <button class="catalog-icon-btn" id="catalog-refresh" title="Atualizar lista">↻</button>
+                  </div>
+
+                  <div class="catalog-cats-title">Categorias</div>
+                  <input type="text" id="catalog-cat-filter" class="catalog-input compact" placeholder="Filtrar...">
+                  <div class="catalog-cats-list" id="catalog-cats"></div>
+                  <div class="catalog-status compact" id="catalog-cats-status"></div>
+                </aside>
+
+                <section class="catalog-items-col" id="catalog-items-col">
+                  <div class="catalog-empty" id="catalog-items-empty">
+                    <svg viewBox="0 0 24 24" width="42" height="42"><path fill="currentColor" d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2z"/></svg>
+                    <div>Selecione uma categoria à esquerda para ver os wallpapers.</div>
+                  </div>
+
+                  <div class="catalog-items-content hidden" id="catalog-items-content">
+                    <div class="catalog-items-header">
+                      <div>
+                        <div class="wp-view-title" id="catalog-items-title">Categoria</div>
+                        <div class="wp-view-desc" id="catalog-items-desc">—</div>
+                      </div>
+                    </div>
+
+                    <input type="text" id="catalog-item-filter" class="catalog-input" placeholder="Filtrar por nome...">
+                    <div class="catalog-grid" id="catalog-items"></div>
+                    <div class="catalog-status" id="catalog-items-status"></div>
+                    <div id="catalog-sentinel" style="height:1px"></div>
+                  </div>
+                </section>
+
+              </div>
+            </div>
+
+            <!-- CATÁLOGO: PREVIEW + DOWNLOAD (overlay por cima do catálogo) -->
+            <div class="wp-view hidden" id="wp-view-catalog-preview">
+              <button class="wp-back" id="catalog-preview-back">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Voltar
+              </button>
+
+              <div class="wp-confirm-preview" id="catalog-preview-box"></div>
+
+              <div class="wp-section">
+                <div class="wp-section-title">Detalhes</div>
+                <div class="catalog-meta" id="catalog-preview-meta"></div>
+              </div>
+
+              <div class="apply-bar">
+                <button class="text-btn" id="catalog-preview-cancel">Cancelar</button>
+                <button class="primary-btn" id="catalog-download-btn">Baixar para Meus wallpapers</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- WIDGETS -->
+          <div class="tab-panel" data-panel="widgets">
+            <div class="option-group">
+              <div class="option-row toggle-row">
+                <div class="label-block"><div class="title">Relógio</div></div>
+                <input type="checkbox" id="toggle-clock" checked>
+              </div>
+              <div class="option-row toggle-row">
+                <div class="label-block"><div class="title">Saudação</div></div>
+                <input type="checkbox" id="toggle-greeting" checked>
+              </div>
+              <div class="option-row toggle-row">
+                <div class="label-block"><div class="title">Barra de busca</div></div>
+                <input type="checkbox" id="toggle-search" checked>
+              </div>
+            </div>
+
+            <div class="option-group">
+              <div class="option-row" style="flex-direction:column;align-items:flex-start;gap:10px">
+                <div class="label-block">
+                  <div class="title">Modo Editor</div>
+                  <div class="desc">Arraste os widgets livremente. Eles se reposicionam automaticamente quando possível.</div>
+                </div>
+                <button class="primary-btn" id="enter-editor" style="width:100%">Entrar no Modo Editor</button>
+              </div>
+            </div>
+
+            <button class="text-btn" id="reset-layout">Restaurar layout padrão</button>
+          </div>
+
+          <!-- ATALHOS -->
+          <div class="tab-panel" data-panel="shortcuts">
+            <p class="hint">Adicione, edite ou remova os atalhos exibidos no topo. Fora do modo editor, você pode clicar com o botão direito em qualquer atalho para editá-lo rapidamente.</p>
+            <div class="shortcuts-editor" id="shortcuts-editor"></div>
+            <button class="primary-btn" id="add-shortcut-btn">+ Adicionar atalho</button>
+            <button class="text-btn danger" id="reset-shortcuts">Restaurar padrão</button>
+          </div>
+
+          <!-- SOBRE -->
+          <div class="tab-panel" data-panel="about">
+            <h3>Zen Tab</h3>
+            <p class="hint">Versão 10.9.0</p>
+            <p class="hint">Nova Guia com galeria de wallpapers, gradientes, cores sólidas, vídeos de fundo, catálogo online e widgets posicionáveis</p>
+            <div class="kbd-list">
+              <div><kbd>Ctrl</kbd> + <kbd>,</kbd> Abrir configurações</div>
+              <div><kbd>Ctrl</kbd> + <kbd>K</kbd> Focar busca</div>
+              <div><kbd>Esc</kbd> Sair do modo editor / fechar modais</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== MENU DE POSIÇÃO ===== -->
+  <div class="pos-menu" id="pos-menu">
+    <div class="pos-menu-title" id="pos-menu-title">Posicionar</div>
+    <div class="pos-menu-grid">
+      <button data-pos="top-left" title="Topo esquerda">↖</button>
+      <button data-pos="top-center" title="Topo centro">↑</button>
+      <button data-pos="top-right" title="Topo direita">↗</button>
+      <button data-pos="center-left" title="Centro esquerda">←</button>
+      <button data-pos="center" title="Centro">●</button>
+      <button data-pos="center-right" title="Centro direita">→</button>
+      <button data-pos="bottom-left" title="Base esquerda">↙</button>
+      <button data-pos="bottom-center" title="Base centro">↓</button>
+      <button data-pos="bottom-right" title="Base direita">↘</button>
+    </div>
+    <button class="pos-menu-reset" data-pos="reset">↺ Restaurar posição</button>
+  </div>
+
+  <!-- ===== MODAL DE EDIÇÃO DE ATALHO ===== -->
+  <div class="modal-overlay" id="shortcut-modal">
+    <div class="settings-modal small">
+      <div class="settings-header">
+        <span id="shortcut-modal-title">Editar atalho</span>
+        <button class="modal-close" id="sc-cancel">×</button>
+      </div>
+      <div class="settings-body">
+        <input type="text" id="sc-name" placeholder="Nome (ex: YouTube)" maxlength="20">
+        <input type="text" id="sc-url" placeholder="URL (ex: https://youtube.com)">
+        <div class="modal-actions between">
+          <button class="text-btn danger" id="sc-delete">Apagar</button>
+          <div class="right-actions">
+            <button class="text-btn" id="sc-cancel-btn">Cancelar</button>
+            <button class="primary-btn" id="sc-confirm">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-static guide-v"></div>
+  <div class="guide-static guide-h"></div>
+  <div class="guide-line guide-v" id="guide-v"></div>
+  <div class="guide-line guide-h" id="guide-h"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
